@@ -16,6 +16,8 @@ const pairsAmount = sounds.length;
 var Found = 0;
 var Pairs = [];
 var selcted = false;
+var SelectedElement;
+var SelectedSongId;
 
 var CurrentSongId = sounds[0][0];
 var MusicPlay = false;
@@ -29,6 +31,7 @@ sounds.forEach((sounds, index) => {
         CreateAudio(AudioIdName + index + AudioIdCloneName, sounds[1])
     ]);
 })
+
 
 var buttonArr = []
 sounds.forEach((sounds, index) => {
@@ -70,10 +73,32 @@ function CreateButton(_audioId)
             document.getElementById(CurrentSongId).play();
             MusicPlay = true;
             console.log(CurrentSongId + ", play");
+            const el = e.currentTarget;
             if(!selcted)
             {
-                const el = e.currentTarget;
+                console.log("select first")
+                SelectedElement = el;
+                SelectedSongId = CurrentSongId;
+
                 el.style.backgroundColor  = 'rgb(109, 59, 59)';
+                selcted = true;
+            }
+            else
+            {
+                console.log("compare: ")   
+                for(let i = 0; i < Pairs.length; i++)
+                {
+                    console.log(Pairs[i][0])
+                    console.log(Pairs[i][0] + " == " +  CurrentSongId)
+                    console.log(Pairs[i][1] + " == " +  SelectedSongId)
+                    if(Pairs[i][0] == CurrentSongId || Pairs[i][1] == CurrentSongId)
+                        if(Pairs[i][1] == SelectedSongId || Pairs[i][0] == SelectedSongId)
+                        {
+                            PairFound(SelectedElement, el, i)
+                            break;
+                        }
+                }
+                selcted = false;
             }
         }
         else
@@ -87,6 +112,15 @@ function CreateButton(_audioId)
     buttonArr.push(btn)
 }
 
+function PairFound(firstElement, secondeElement, index)
+{
+    Found++;
+    console.log("Found Pair")
+    firstElement.style.backgroundColor = 'green';
+    secondeElement.style.backgroundColor = 'green';
+
+    // firstElement.innerText = secondeElement.innerText = Found
+}
 
 
 function shuffleArray(array) {
