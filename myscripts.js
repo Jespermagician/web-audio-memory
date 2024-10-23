@@ -12,7 +12,8 @@ const Language = {
     TitleStart: "Let`s Play",
     TitleFalse: "Falsch!",
     TitleFound: "Richtig!",
-    TitleSelected: "erster..."
+    TitleSelected: "erstes...",
+    GuessedAll: "Alle erraten!"
 }
 
 const AudioIdName = 'Audio';
@@ -30,6 +31,7 @@ var CurrentSongId = sounds[0][0];
 var MusicPlay = false;
 var Color_NotGuessed = "rgb(150, 37, 37)"
 var Color_DefaultHeader = "rgb(167, 180, 192)"
+var Color_Correct = "green"
 console.log(CurrentSongId)
 
 // later let the audios create it self as well
@@ -89,7 +91,7 @@ function CreateButton(_audioId)
                 SelectedElement = el;
                 SelectedSongId = CurrentSongId;
                 HeaderInfo.style.color = Color_DefaultHeader
-                HeaderInfo.innerHTML = "erstes...";
+                HeaderInfo.innerHTML = Language.TitleSelected;
 
                 el.style.backgroundColor  = 'rgb(109, 59, 59)';
                 selcted = true;
@@ -111,7 +113,7 @@ function CreateButton(_audioId)
                         }
                 }
                 SelectedElement.style.backgroundColor = Color_NotGuessed;
-                HeaderInfo.innerHTML = "Falsch!";
+                HeaderInfo.innerHTML = Language.TitleFalse;
                 HeaderInfo.style.color = Color_NotGuessed;
                 selcted = false;
                 
@@ -132,15 +134,16 @@ function PairFound(firstElement, secondeElement, index)
 {
     Found++;
     console.log("Found Pair")
-    firstElement.style.backgroundColor = 'green';
-    secondeElement.style.backgroundColor = 'green';
+    firstElement.style.backgroundColor = Color_Correct;
+    secondeElement.style.backgroundColor = Color_Correct;
 
-    HeaderInfo.innerHTML = "Erraten!"
-    HeaderInfo.style.color = "green"
+    HeaderInfo.innerHTML = Language.TitleFound
+    HeaderInfo.style.color = Color_Correct
     firstElement.innerText = secondeElement.innerText = "Found"
-    if(Found == PairFound.length)
+    if(Found == Pairs.length)
     {
-
+        HeaderInfo.innerHTML = Language.GuessedAll;
+        HeaderInfo.style.color
     }
 }
 
