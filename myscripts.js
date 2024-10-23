@@ -6,8 +6,14 @@ const sounds = [
     ['audio5', 'audio\\Sternenstaub-schmidt-rin.mp3']
 ];
 
-
-const ButtonTitleName = "Guess";
+const Language = {
+    Buttons : "Guess",
+    Found: "Found",
+    TitleStart: "Let`s Play",
+    TitleFalse: "Falsch!",
+    TitleFound: "Richtig!",
+    TitleSelected: "erster..."
+}
 
 const AudioIdName = 'Audio';
 const AudioIdCloneName = 'c';
@@ -18,9 +24,12 @@ var Pairs = [];
 var selcted = false;
 var SelectedElement;
 var SelectedSongId;
+const  HeaderInfo = document.getElementById("output");
 
 var CurrentSongId = sounds[0][0];
 var MusicPlay = false;
+var Color_NotGuessed = "rgb(150, 37, 37)"
+var Color_DefaultHeader = "rgb(167, 180, 192)"
 console.log(CurrentSongId)
 
 // later let the audios create it self as well
@@ -62,7 +71,7 @@ function CreateButton(_audioId)
     const btn = document.createElement('button');
     btn.classList.add('btn');
 
-    btn.innerText = ButtonTitleName;
+    btn.innerText = Language.Buttons;
 
     btn.addEventListener('click', (e)=>{
         stopSong();
@@ -79,6 +88,8 @@ function CreateButton(_audioId)
                 console.log("select first")
                 SelectedElement = el;
                 SelectedSongId = CurrentSongId;
+                HeaderInfo.style.color = Color_DefaultHeader
+                HeaderInfo.innerHTML = "erstes...";
 
                 el.style.backgroundColor  = 'rgb(109, 59, 59)';
                 selcted = true;
@@ -95,10 +106,15 @@ function CreateButton(_audioId)
                         if(Pairs[i][1] == SelectedSongId || Pairs[i][0] == SelectedSongId)
                         {
                             PairFound(SelectedElement, el, i)
-                            break;
+                            selcted = false;
+                            return;
                         }
                 }
+                SelectedElement.style.backgroundColor = Color_NotGuessed;
+                HeaderInfo.innerHTML = "Falsch!";
+                HeaderInfo.style.color = Color_NotGuessed;
                 selcted = false;
+                
             }
         }
         else
@@ -119,7 +135,13 @@ function PairFound(firstElement, secondeElement, index)
     firstElement.style.backgroundColor = 'green';
     secondeElement.style.backgroundColor = 'green';
 
-    // firstElement.innerText = secondeElement.innerText = Found
+    HeaderInfo.innerHTML = "Erraten!"
+    HeaderInfo.style.color = "green"
+    firstElement.innerText = secondeElement.innerText = "Found"
+    if(Found == PairFound.length)
+    {
+
+    }
 }
 
 
