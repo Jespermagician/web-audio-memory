@@ -15,6 +15,7 @@ const sounds = [
     ['audio14', 'audio\\HobbitWar.mp3'],
 ];
 
+
 const Language = {
     Buttons : "Guess",
     Found: "Found",
@@ -34,6 +35,7 @@ var Pairs = [];
 var selcted = false;
 var SelectedElement;
 var SelectedSongId;
+var isSameButton = false;
 const  HeaderInfo = document.getElementById("output");
 
 var CurrentSongId = sounds[0][0];
@@ -41,8 +43,8 @@ var MusicPlay = false;
 var Color_NotGuessed = "rgb(130, 37, 37)"
 var Color_DefaultHeader = "rgb(108, 117, 126)" //"rgb(167, 180, 192)"
 var Color_Correct = "rgb(55, 120, 55)"
-console.log(CurrentSongId)
 
+console.log("start id:" + CurrentSongId)
 // later let the audios create it self as well
 sounds.forEach((sounds, index) => {
     Pairs.push(
@@ -61,7 +63,7 @@ sounds.forEach((sounds, index) => {
 } )
 
 buttonArr = shuffleArray(buttonArr)
-console.log(buttonArr)
+// console.log(buttonArr)
 
 // functions
 
@@ -69,7 +71,7 @@ function CreateAudio(id, path)
 {
     const audioField = document.createElement('audio');
     audioField.id = id;
-    console.log(audioField.id)
+    // console.log(audioField.id)
     audioField.src = path;
     document.getElementById('audiosDiv').appendChild(audioField);
     return id;
@@ -89,7 +91,11 @@ function CreateButton(_audioId)
         // Wenn selber Audio ist am laufen, spiele nicht erneut
         if(CurrentSongId != _audioId || !MusicPlay)
         {
+            console.log("-------------");
+            let id_against_double_click = CurrentSongId;
+            console.log("first id: " +CurrentSongId);
             CurrentSongId = _audioId;
+            console.log("Set id: " +_audioId);
             document.getElementById(CurrentSongId).play();
             MusicPlay = true;
             console.log(CurrentSongId + ", play");
@@ -107,6 +113,11 @@ function CreateButton(_audioId)
             }
             else
             {
+                if(isSameButton && CurrentSongId == SelectedSongId)
+                {
+                    console.log("Same button is pressed!");
+                    return
+                }
                 console.log("compare: ")   
                 for(let i = 0; i < Pairs.length; i++)
                 {
@@ -114,8 +125,9 @@ function CreateButton(_audioId)
                     // console.log(Pairs[i][0] + " == " +  CurrentSongId)
                     // console.log(Pairs[i][1] + " == " +  SelectedSongId)
                     if(Pairs[i][0] == CurrentSongId || Pairs[i][1] == CurrentSongId)
-                        if(Pairs[i][1] == SelectedSongId || Pairs[i][0] == SelectedSongId)
+                        if((Pairs[i][1] == SelectedSongId || Pairs[i][0] == SelectedSongId) && CurrentSongId != SelectedSongId )
                         {
+                            console.log("current: " + CurrentSongId + " != selected: " + SelectedSongId)
                             PairFound(SelectedElement, el, i)
                             selcted = false;
                             return;
@@ -124,14 +136,22 @@ function CreateButton(_audioId)
                 SelectedElement.style.backgroundColor = Color_NotGuessed;
                 HeaderInfo.innerHTML = Language.TitleFalse;
                 HeaderInfo.style.color = Color_NotGuessed;
-                selcted = false;
-                
+                console.log("hier:")
+                console.log(MusicPlay)
+                console.log(CurrentSongId)
+                console.log(_audioId)
+                if(id_against_double_click != CurrentSongId)
+                {
+                    selcted = false;
+                    CurrentSongId = null
+                }
             }
         }
         else
         {
             console.log(CurrentSongId + ", is already on play");
             MusicPlay = false;
+            isSameButton = true;
         }
         
     });
@@ -168,7 +188,7 @@ function shuffleArray(array) {
 }
 
 buttonArr.forEach((buttonArr) => {
-    console.log(buttonArr)
+    // console.log(buttonArr)
     document.getElementById('buttons').appendChild(buttonArr);
 });
 
