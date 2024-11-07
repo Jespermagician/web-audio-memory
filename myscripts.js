@@ -1,9 +1,18 @@
 const sounds = [
-    ['audio1', 'audio\\Pink-Panther-Theme.mp3'], 
-    ['audio2', 'audio\\martin-halts-maul.mp3'],
-    ['audio3', 'audio\\Jugendwort-2022.mp3'],
-    ['audio4', 'audio\\Ronaldo-Shoppe.mp3'],
-    ['audio5', 'audio\\Sternenstaub-schmidt-rin.mp3']
+    ['audio1', 'audio\\hamburgLandL.mp3'], 
+    ['audio2', 'audio\\Hobbit.mp3'],
+    ['audio3', 'audio\\JugendwortWyyyyldddd.mp3'],
+    ['audio4', 'audio\\memeFast.mp3'],
+    ['audio5', 'audio\\wombats.mp3'],
+    ['audio6', 'audio\\PinkPanther.mp3'], 
+    ['audio7', 'audio\\RickNeverGonna.mp3'],
+    ['audio8', 'audio\\schüddi.mp3'],
+    ['audio9', 'audio\\pianooo.mp3'],
+    ['audio10', 'audio\\Jugendwort.mp3'],
+    ['audio11', 'audio\\Amogo.mp3'],
+    ['audio12', 'audio\\Madddin.mp3'],
+    ['audio13', 'audio\\Pioano2.mp3'],
+    ['audio14', 'audio\\HobbitWar.mp3'],
 ];
 
 const Language = {
@@ -12,7 +21,7 @@ const Language = {
     TitleStart: "Let`s Play",
     TitleFalse: "Falsch!",
     TitleFound: "Richtig!",
-    TitleSelected: "erstes...",
+    TitleSelected: "erstes",
     GuessedAll: "Alle erraten!"
 }
 
@@ -29,9 +38,9 @@ const  HeaderInfo = document.getElementById("output");
 
 var CurrentSongId = sounds[0][0];
 var MusicPlay = false;
-var Color_NotGuessed = "rgb(150, 37, 37)"
-var Color_DefaultHeader = "rgb(167, 180, 192)"
-var Color_Correct = "green"
+var Color_NotGuessed = "rgb(130, 37, 37)"
+var Color_DefaultHeader = "rgb(108, 117, 126)" //"rgb(167, 180, 192)"
+var Color_Correct = "rgb(55, 120, 55)"
 console.log(CurrentSongId)
 
 // later let the audios create it self as well
@@ -101,9 +110,9 @@ function CreateButton(_audioId)
                 console.log("compare: ")   
                 for(let i = 0; i < Pairs.length; i++)
                 {
-                    console.log(Pairs[i][0])
-                    console.log(Pairs[i][0] + " == " +  CurrentSongId)
-                    console.log(Pairs[i][1] + " == " +  SelectedSongId)
+                    // console.log(Pairs[i][0])
+                    // console.log(Pairs[i][0] + " == " +  CurrentSongId)
+                    // console.log(Pairs[i][1] + " == " +  SelectedSongId)
                     if(Pairs[i][0] == CurrentSongId || Pairs[i][1] == CurrentSongId)
                         if(Pairs[i][1] == SelectedSongId || Pairs[i][0] == SelectedSongId)
                         {

@@ -1,6 +1,6 @@
 body
 {
-    background-color: rgb(35, 30, 53);
+    background-color: rgb(8, 10, 29);
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     flex-wrap: wrap;
@@ -11,14 +11,30 @@ body
     margin: 0;
 }   
 
+#buttons
+{
+    margin: 0% 13% 3% 13%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 * {
     box-sizing: border-box;
 }
 
 #output{
-    font-size: 5rem;
+    font-size: 7rem;
     font-family: fantasy;
-    color: rgb(167, 180, 192);
+    color: rgb(108, 117, 126);
+    padding: 3%;
+    text-align:center;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-family:"Playfair Display", serif; 
+    font-weight: 600;
+    text-shadow: 5px 5px rgba(79, 78, 83, 0.432);
 }
 
 .btn {
